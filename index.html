@@ -4,8 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio Website</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif'],
+            heading: ['Montserrat', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
   <!-- Alpine.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.3/cdn.min.js" defer></script>
   <!-- Font Awesome -->
@@ -23,6 +39,13 @@
     .portfolio-overlay {
       opacity: 0;
       transition: all 0.3s ease;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: -0.025em;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
     }
   </style>
 </head>
@@ -204,7 +227,7 @@
 <section id="portfolio" class="py-20">
   <div class="container mx-auto px-6">
     <div class="text-center mb-16">
-      <h2 class="text-3xl font-bold mb-2">My Work</h2>
+      <h2 class="text-3xl font-bold mb-2 font-heading tracking-tight">My Work</h2>
       <div class="w-20 h-1 bg-purple-600 mx-auto"></div>
     </div>
 
@@ -297,7 +320,7 @@
 <section id="testimonials" class="py-20 bg-gray-50">
   <div class="container mx-auto px-6">
     <div class="text-center mb-16">
-      <h2 class="text-3xl font-bold mb-2">Client Testimonials</h2>
+      <h2 class="text-3xl font-bold mb-2 font-heading tracking-tight">Client Testimonials</h2>
       <div class="w-20 h-1 bg-purple-600 mx-auto"></div>
     </div>
 
@@ -369,7 +392,7 @@
           </div>
           <div>
             <h3 class="font-semibold mb-2">Address</h3>
-            <p class="text-gray-600">123 Portfolio Street, Design City, CA 90210</p>
+            <p class="text-gray-600">Tlemcen 13000, Algeria</p>
           </div>
         </div>
 
@@ -379,7 +402,7 @@
           </div>
           <div>
             <h3 class="font-semibold mb-2">Email</h3>
-            <p class="text-gray-600">john@example.com</p>
+            <p class="text-gray-600"><a href="mailto:boumedyen.benboubekeur@gmail.com">boumedyen.benboubekeur@gmail.com</a> </p>
           </div>
         </div>
 
@@ -389,21 +412,12 @@
           </div>
           <div>
             <h3 class="font-semibold mb-2">Phone</h3>
-            <p class="text-gray-600">+1 (555) 123-4567</p>
+            <p class="text-gray-600">+213 554 561 084 </p>
           </div>
         </div>
 
         <div class="flex space-x-4">
-          <a href="#" class="bg-gray-200 text-gray-800 w-10 h-10 rounded-full flex items-center justify-center hover:bg-purple-600 hover:text-white transition-colors duration-300">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="#" class="bg-gray-200 text-gray-800 w-10 h-10 rounded-full flex items-center justify-center hover:bg-purple-600 hover:text-white transition-colors duration-300">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="#" class="bg-gray-200 text-gray-800 w-10 h-10 rounded-full flex items-center justify-center hover:bg-purple-600 hover:text-white transition-colors duration-300">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="#" class="bg-gray-200 text-gray-800 w-10 h-10 rounded-full flex items-center justify-center hover:bg-purple-600 hover:text-white transition-colors duration-300">
+          <a href="https://www.linkedin.com/in/boumedyen-benboubekeur/" class="bg-gray-200 text-gray-800 w-10 h-10 rounded-full flex items-center justify-center hover:bg-purple-600 hover:text-white transition-colors duration-300">
             <i class="fab fa-linkedin-in"></i>
           </a>
         </div>
@@ -447,7 +461,7 @@
   <div class="container mx-auto px-6">
     <div class="flex flex-col md:flex-row justify-between">
       <div class="mb-8 md:mb-0">
-        <h3 class="text-2xl font-bold text-purple-400 mb-4">TAMAL</h3>
+        <h3 class="text-2xl font-bold text-purple-400 mb-4">Boumedyen</h3>
         <p class="text-gray-400 max-w-sm">I design and develop services for customers of all sizes, specializing in creating stylish, modern websites and web applications.</p>
       </div>
 
@@ -465,16 +479,7 @@
       <div>
         <h4 class="text-lg font-semibold mb-4">Follow Me</h4>
         <div class="flex space-x-4">
-          <a href="#" class="bg-gray-800 text-gray-400 w-10 h-10 rounded-full flex items-center justify-center hover:bg-purple-600 hover:text-white transition-colors duration-300">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="#" class="bg-gray-800 text-gray-400 w-10 h-10 rounded-full flex items-center justify-center hover:bg-purple-600 hover:text-white transition-colors duration-300">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="#" class="bg-gray-800 text-gray-400 w-10 h-10 rounded-full flex items-center justify-center hover:bg-purple-600 hover:text-white transition-colors duration-300">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="#" class="bg-gray-800 text-gray-400 w-10 h-10 rounded-full flex items-center justify-center hover:bg-purple-600 hover:text-white transition-colors duration-300">
+          <a href="https://www.linkedin.com/in/boumedyen-benboubekeur/" class="bg-gray-800 text-gray-400 w-10 h-10 rounded-full flex items-center justify-center hover:bg-purple-600 hover:text-white transition-colors duration-300">
             <i class="fab fa-linkedin-in"></i>
           </a>
         </div>
@@ -482,7 +487,7 @@
     </div>
 
     <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-      <p>&copy; 2025 Tamal Portfolio. All rights reserved.</p>
+      <p>&copy; 2025 Boumedyen's Portfolio. All rights reserved.</p>
     </div>
   </div>
 </footer>
