@@ -98,7 +98,7 @@
     <div class="max-w-2xl text-white">
       <h5 class="text-xl mb-2">Hello, I'm</h5>
       <h1 class="text-5xl md:text-6xl font-bold mb-4">Benboubekeur Boumedyen</h1>
-      <div x-data="{ currentText: 0, texts: ['Web Developer', 'UI/UX Designer', 'Freelancer'] }"
+      <div x-data="{ currentText: 0, texts: ['Web Developer', 'Laravel', 'Freelancer', 'MySql', 'Vue Js', 'Livewire', 'Tailwind CSS'] }"
            x-init="setInterval(() => { currentText = (currentText + 1) % texts.length }, 3000)">
         <h2 class="text-3xl font-semibold mb-6">
           <span class="text-purple-400" x-text="texts[currentText]"></span>
@@ -158,9 +158,18 @@
           </div>
         </div>
 
+        <div class="mb-8">
+          <div class="flex justify-between mb-1">
+            <span class="font-medium">MySql</span>
+            <span>90%</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2">
+            <div class="bg-purple-600 h-2 rounded-full" style="width: 90%"></div>
+          </div>
+        </div>
+
         <div class="flex space-x-4">
           <a href="#contact" class="bg-purple-600 text-white px-6 py-3 rounded-full font-medium hover:bg-purple-700 transition-colors duration-300">Hire Me</a>
-          <a href="#" class="bg-transparent border-2 border-purple-600 text-purple-600 px-6 py-3 rounded-full font-medium hover:bg-purple-600 hover:text-white transition-colors duration-300">Download CV</a>
         </div>
       </div>
     </div>
