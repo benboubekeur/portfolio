@@ -27,6 +27,47 @@
   <!-- Font Awesome -->
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js"></script>
   <style>
+    .skill-tag {
+      position: absolute;
+      border-radius: 9999px;
+      padding: 0.5rem 1rem;
+      transition: transform 0.5s ease;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      animation: float 20s infinite linear;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      25% {
+        transform: translate(5px, 10px) rotate(5deg);
+      }
+      50% {
+        transform: translate(0, 15px) rotate(0deg);
+      }
+      75% {
+        transform: translate(-5px, 5px) rotate(-5deg);
+      }
+      100% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+    }
+
+    .skill-tag:hover {
+      transform: scale(1.1);
+      z-index: 50;
+    }
+
+    #skills-container {
+      height: 400px;
+      position: relative;
+      overflow: hidden;
+    }
+  </style>
+  <style>
     [x-cloak] { display: none !important; }
     .hero-bg {
       background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('./img/bg-section.jpg');
@@ -130,45 +171,10 @@
         <h3 class="text-2xl font-semibold mb-4">Who am I?</h3>
         <p class="text-gray-600 mb-6">I'm a professional web developer with 6+ years of experience. I create successful websites that are fast, easy to use, and built with the best practices.</p>
 
-        <div class="mb-8">
-          <div class="flex justify-between mb-1">
-            <span class="font-medium">Vue js</span>
-            <span>95%</span>
-          </div>
-          <div class="w-full bg-gray-200 rounded-full h-2">
-            <div class="bg-purple-600 h-2 rounded-full" style="width: 95%"></div>
-          </div>
+        <div id="skills-container" class="p-6 relative">
+          <!-- Skills will be inserted here by JavaScript -->
         </div>
 
-        <div class="mb-8">
-          <div class="flex justify-between mb-1">
-            <span class="font-medium">Php</span>
-            <span>85%</span>
-          </div>
-          <div class="w-full bg-gray-200 rounded-full h-2">
-            <div class="bg-purple-600 h-2 rounded-full" style="width: 85%"></div>
-          </div>
-        </div>
-
-        <div class="mb-8">
-          <div class="flex justify-between mb-1">
-            <span class="font-medium">Laravel</span>
-            <span>90%</span>
-          </div>
-          <div class="w-full bg-gray-200 rounded-full h-2">
-            <div class="bg-purple-600 h-2 rounded-full" style="width: 90%"></div>
-          </div>
-        </div>
-
-        <div class="mb-8">
-          <div class="flex justify-between mb-1">
-            <span class="font-medium">MySql</span>
-            <span>90%</span>
-          </div>
-          <div class="w-full bg-gray-200 rounded-full h-2">
-            <div class="bg-purple-600 h-2 rounded-full" style="width: 90%"></div>
-          </div>
-        </div>
 
         <div class="flex space-x-4">
           <a href="#contact" class="bg-purple-600 text-white px-6 py-3 rounded-full font-medium hover:bg-purple-700 transition-colors duration-300">Hire Me</a>
@@ -613,7 +619,109 @@
         class="fixed bottom-8 right-8 bg-purple-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-purple-700 transition-colors duration-300 z-10">
   <i class="fas fa-chevron-up"></i>
 </button>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('skills-container');
+    const containerWidth = container.offsetWidth;
+    const containerHeight = container.offsetHeight;
 
+    // List of skills with their categories (which determine colors)
+    const skills = [
+      { name: "Php", category: "backend" },
+      { name: "System Design", category: "backend" },
+      { name: "Vue js", category: "frontend" },
+      { name: "CSS", category: "frontend" },
+      { name: "HTML", category: "frontend" },
+      { name: "Laravel", category: "backend" },
+      { name: "Tailwind", category: "frontend" },
+      { name: "PostgreSQL", category: "database" },
+      { name: "Redis", category: "backend" },
+      { name: "MySql", category: "database" },
+      { name: "Git", category: "tools" },
+      { name: "REST Api", category: "api" }
+    ];
+
+    // Color classes based on category
+    const categoryColors = {
+      frontend: "bg-blue-500 text-white",
+      backend: "bg-green-500 text-white",
+      database: "bg-yellow-500 text-black",
+      devops: "bg-purple-500 text-white",
+      tools: "bg-gray-700 text-white",
+      testing: "bg-red-500 text-white",
+      api: "bg-indigo-500 text-white"
+    };
+
+    // Create and position skill tags
+    skills.forEach((skill, index) => {
+      const skillElement = document.createElement('div');
+
+      // Add classes and text
+      skillElement.classList.add('skill-tag');
+      skillElement.classList.add(...categoryColors[skill.category].split(' '));
+      skillElement.innerText = skill.name;
+
+      // Set random position within container
+      const left = Math.random() * (containerWidth - 150);
+      const top = Math.random() * (containerHeight - 50);
+
+      skillElement.style.left = `${left}px`;
+      skillElement.style.top = `${top}px`;
+
+      // Set unique animation delay for more natural movement
+      skillElement.style.animationDelay = `${index * 0.5}s`;
+
+      // Add to container
+      container.appendChild(skillElement);
+
+      // Make elements draggable
+      makeElementDraggable(skillElement);
+    });
+
+    // Add draggable functionality
+    function makeElementDraggable(element) {
+      let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+      element.onmousedown = dragMouseDown;
+
+      function dragMouseDown(e) {
+        e.preventDefault();
+        // Get mouse position at start
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+
+        // Stop any ongoing animation
+        element.style.animation = 'none';
+
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+      }
+
+      function elementDrag(e) {
+        e.preventDefault();
+        // Calculate new position
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+
+        // Set new position
+        element.style.top = (element.offsetTop - pos2) + "px";
+        element.style.left = (element.offsetLeft - pos1) + "px";
+      }
+
+      function closeDragElement() {
+        // Reset animation when drag ends
+        element.style.animation = 'float 20s infinite linear';
+        element.style.animationPlayState = 'running';
+
+        // Stop moving when mouse button is released
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }
+  });
+</script>
 <script>
   // Smooth scrolling for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
