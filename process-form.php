@@ -1,4 +1,8 @@
 <?php
+const PWD = "X8v^JQmUx&63')!";
+const FROM = 'contact@betterweb.blog';
+const TO = 'boumedyen.benboubekeur@gmail.com';
+
 require 'vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -9,14 +13,13 @@ header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 header('Content-Type: application/json');
 
 // Initialize response array
-$response = array(
+$response = [
     'success' => false,
-    'message' => ''
-);
+    'message' => '',
+];
 
 // Check if the form was submitted via POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
     // Collect and sanitize form data
     $name = isset($_POST['name']) ? filter_var(trim($_POST['name']), FILTER_SANITIZE_STRING) : '';
     $email = isset($_POST['email']) ? filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL) : '';
@@ -24,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $message = isset($_POST['message']) ? filter_var(trim($_POST['message']), FILTER_SANITIZE_STRING) : '';
 
     // Validate data
-    $errors = array();
+    $errors = [];
 
     if (empty($name)) {
         $errors[] = 'Name is required';
@@ -55,14 +58,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $to = 'boumedyen.benboubekeur@gmail.com';
 
     // Set up email headers
-    $headers = "From: $name <$email>" . "\r\n";
-    $headers .= "Reply-To: $email" . "\r\n";
+    $headers = "From: $name <$email>"."\r\n";
+    $headers .= "Reply-To: $email"."\r\n";
     $headers .= "MIME-Version: 1.0\r\n";
     $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 
     // Compose email content
     $emailContent = "
-    <html>
+    <html lang='en-US'>
     <head>
         <title>Contact Form Submission</title>
     </head>
@@ -72,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p><strong>Email:</strong> $email</p>
         <p><strong>Subject:</strong> $subject</p>
         <p><strong>Message:</strong></p>
-        <p>" . nl2br($message) . "</p>
+        <p>".nl2br($message)."</p>
     </body>
     </html>
     ";
@@ -91,36 +94,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Set success response
 
+    $mail = new PHPMailer;
+    $mail->isSMTP();
+    $mail->SMTPDebug = 0;
+    $mail->Host = 'smtp.hostinger.com';
+    $mail->Port = 587;
+    $mail->SMTPAuth = true;
+    $mail->Username = FROM;
+    $mail->Password = PWD;
+    $mail->setFrom(FROM, 'Contact Better Web');
+    $mail->addAddress(TO, 'Boumedyen BenBoubekeur');
+    $mail->Subject = $subject;
+    $mail->msgHTML($emailContent);
 
-
-
-$mail = new PHPMailer;
-$mail->isSMTP();
-$mail->SMTPDebug = 2;
-$mail->Host = 'smtp.hostinger.com';
-$mail->Port = 587;
-$mail->SMTPAuth = true;
-$myEmail = 'contact@betterweb.blog';
-$mail->Username = $myEmail;
-$mail->Password = "X8v^JQmUx&63')!";
-$mail->setFrom($myEmail, 'Contact Better Web');
-$mail->addAddress($to, 'Boumedyen BenBoubekeur');
-$mail->Subject = 'Checking if PHPMailer works';
-$mail->msgHTML($emailContent);
-
-try {
-    if (!$mail->send()) {
-        $response['success'] = true;
-        $response['message'] = 'Your message has been sent successfully.';
-    } else {
+    try {
+        if ($mail->send()) {
+            $response['success'] = true;
+            $response['message'] = 'Your message has been sent successfully.';
+        } else {
+            $response['message'] = 'Failed to send email. Please try again later.';
+        }
+    } catch (\PHPMailer\PHPMailer\Exception $e) {
         $response['message'] = 'Failed to send email. Please try again later.';
     }
-} catch (\PHPMailer\PHPMailer\Exception $e) {
-    $response['message'] = 'Failed to send email. Please try again later.';
-}
 
 // Return JSON response
-echo json_encode($response);
+    echo json_encode($response);
 } else {
     // If not POST request
     $response['message'] = 'Invalid request method';
